@@ -2,13 +2,13 @@ from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
-from core.config import settings
+from app.core.config import settings
 from alembic import context
 
-from models.base import Base
-from models.user import UserOrm
-from models.device import DeviceOrm
-from models.measurement import MeasurementOrm
+from app.models.base import Base
+from app.models.user import UserOrm
+from app.models.device import DeviceOrm
+from app.models.measurement import MeasurementOrm
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
