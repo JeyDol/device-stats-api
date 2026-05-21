@@ -1,7 +1,7 @@
 from app.core.celery import celery_app
 
 
-@celery_app.task
+@celery_app.task(name="app.tasks.analytics.calculate_stats")
 def calculate_stats(measurements: list[dict]) -> dict:
     values = []
     for m in measurements:
