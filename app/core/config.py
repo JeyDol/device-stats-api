@@ -21,6 +21,8 @@ class Settings(BaseSettings):
     def REDIS_URL(self):
         return f"redis://{self.REDIS_HOST}:{self.REDIS_PORT}/{self.REDIS_DB}"
 
+    class Config:
+        env_file = ".env"
 
 settings = Settings()
 

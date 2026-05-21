@@ -18,7 +18,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: device_stats
     ports:
-      - "5432:5432"
+      - "5433:5432"
 
   redis:
     image: redis:7
