@@ -23,5 +23,6 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 [dependency-groups]
 dev = [
-    "celery-types (>=0.26.0,<0.27.0)"
+    "celery-types (>=0.26.0,<0.27.0)",
+    "locust (>=2.44.0,<3.0.0)"
 ]
