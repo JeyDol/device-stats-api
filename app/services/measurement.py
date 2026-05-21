@@ -4,6 +4,8 @@ from app.repositories.measurement import MeasurementRepository
 from app.schemas.measurement import MeasurementCreate
 from app.services.base import BaseService
 
+from app.tasks.analytics import calculate_stats
+
 
 class MeasurementService(BaseService):
     def __init__(self, repository: MeasurementRepository):
@@ -36,10 +38,14 @@ class MeasurementService(BaseService):
     async def get_stats(self, device_id: int):
         """Получить статистику за все время"""
         measurements = await self.repository.get_by_device_id(device_id)
-        return self._calculate_stats(measurements)
+        measurements_data = [{"x": m.x, "y": m.y, "z": m.z} for m in measurements]
+        task = calculate_stats.delay(measurements_data)
+        return task.get()
 
 
     async def get_stats_by_period(self, device_id: int, from_dt: datetime, to_dt: datetime):
         """Получить статистику за период"""
         measurements = await self.repository.get_by_device_id_and_period(device_id, from_dt, to_dt)
-        return self._calculate_stats(measurements)
+        measurements_data = [{"x": m.x, "y": m.y, "z": m.z} for m in measurements]
+        task = calculate_stats.delay(measurements_data)
+        return task.get()
